@@ -43,7 +43,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="text-3xl font-black font-playfair">Dental Biz Pro</div>
+            <div className="text-3xl font-black font-playfair">Dental Kit Pro</div>
           </div>
 
           {/* Desktop Navigation */}
