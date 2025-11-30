@@ -9,11 +9,40 @@ const SignupModal = ({ isOpen, onClose }) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [signupNumber, setSignupNumber] = useState(null);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  // Fetch current count on mount
+  // Preload images when modal opens
   useEffect(() => {
     if (isOpen) {
       fetchCurrentCount();
+      
+      // Preload images
+      const images = [
+        '/lovable-uploads/saaspicmobile.png',
+        '/lovable-uploads/saaspic.png'
+      ];
+      
+      let loadedCount = 0;
+      const totalImages = images.length;
+      
+      images.forEach((src) => {
+        const img = new Image();
+        img.onload = () => {
+          loadedCount++;
+          if (loadedCount === totalImages) {
+            setImagesLoaded(true);
+          }
+        };
+        img.onerror = () => {
+          loadedCount++;
+          if (loadedCount === totalImages) {
+            setImagesLoaded(true); // Show modal even if images fail
+          }
+        };
+        img.src = src;
+      });
+    } else {
+      setImagesLoaded(false); // Reset when modal closes
     }
   }, [isOpen]);
 
@@ -42,7 +71,6 @@ const SignupModal = ({ isOpen, onClose }) => {
     setError('');
     setIsSubmitting(true);
 
-    // Validation
     if (!email) {
       setError('Email is required');
       setIsSubmitting(false);
@@ -56,7 +84,6 @@ const SignupModal = ({ isOpen, onClose }) => {
     }
 
     try {
-      // 1. Get current count
       const { data: counterData, error: counterError } = await supabase
         .from('densoftsignupcounter')
         .select('current_count')
@@ -67,7 +94,6 @@ const SignupModal = ({ isOpen, onClose }) => {
 
       const newCount = counterData.current_count + 1;
 
-      // 2. Update counter
       const { error: updateError } = await supabase
         .from('densoftsignupcounter')
         .update({ current_count: newCount })
@@ -75,7 +101,6 @@ const SignupModal = ({ isOpen, onClose }) => {
 
       if (updateError) throw updateError;
 
-      // 3. Insert signup
       const { error: insertError } = await supabase
         .from('densoftsignups')
         .insert([
@@ -86,7 +111,6 @@ const SignupModal = ({ isOpen, onClose }) => {
         ]);
 
       if (insertError) {
-        // Check if duplicate email
         if (insertError.code === '23505') {
           setError('This email is already on the waitlist!');
           setIsSubmitting(false);
@@ -95,7 +119,6 @@ const SignupModal = ({ isOpen, onClose }) => {
         throw insertError;
       }
 
-      // Success!
       setCurrentCount(newCount);
       setSignupNumber(newCount);
       setSuccess(true);
@@ -120,18 +143,30 @@ const SignupModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Black overlay - click to close */}
+      {/* Black overlay */}
       <div
         className="absolute inset-0 bg-black/70"
         onClick={handleClose}
       />
 
-      {/* MODAL CONTAINER - Desktop: 80% width, 90% height | Mobile: 100% both */}
-      <div className="relative w-full h-full md:w-[80%] md:h-[90%] md:rounded-2xl overflow-hidden shadow-2xl">
+      {/* Loading state - show while images load */}
+      {!imagesLoaded && (
+        <div className="relative z-10 text-white text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p>Loading...</p>
+        </div>
+      )}
+
+      {/* MODAL CONTAINER - Only show when images are loaded */}
+      <div 
+        className={`relative w-full h-full md:w-[80%] md:h-[90%] md:rounded-2xl overflow-hidden shadow-2xl transition-opacity duration-300 ${
+          imagesLoaded ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
         
         {/* BLURRED BACKGROUND IMAGE */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 md:hidden"
           style={{
             backgroundImage: 'url(/lovable-uploads/saaspicmobile.png)',
             backgroundSize: 'cover',
@@ -149,7 +184,7 @@ const SignupModal = ({ isOpen, onClose }) => {
           }}
         />
 
-        {/* WHITE CONTENT BOX - Centered */}
+        {/* WHITE CONTENT BOX */}
         <div className="relative h-full flex items-center justify-center p-4 md:p-8 overflow-y-auto">
           <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 md:p-8">
             
@@ -164,17 +199,14 @@ const SignupModal = ({ isOpen, onClose }) => {
 
             {!success ? (
               <>
-                {/* Headline - Centered */}
                 <h2 className="font-playfair text-2xl md:text-3xl font-bold mb-3 text-center">
                   Join The First 100 Founding Members
                 </h2>
 
-                {/* Subtext - Centered */}
                 <p className="text-gray-600 mb-6 text-center">
                   🎁 Lock in 50% off for life • Launching January 1, 2026
                 </p>
 
-                {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <input
@@ -208,7 +240,6 @@ const SignupModal = ({ isOpen, onClose }) => {
                 </form>
               </>
             ) : (
-              // Success State
               <div className="text-center py-4">
                 <div className="text-6xl mb-4">🎉</div>
                 <h3 className="font-playfair text-2xl md:text-3xl font-bold mb-3">
