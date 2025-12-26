@@ -204,7 +204,7 @@ const SignupModal = ({ isOpen, onClose }) => {
                 </h2>
 
                 <p className="text-gray-600 mb-6 text-center">
-                  🎁 Lock in 50% off for life • Launching January 1, 2026
+                  🎁 Lock in 50% off for life • Launching January 2026
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
