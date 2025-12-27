@@ -24,11 +24,11 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  // Scroll to Feature 1 section
-  const scrollToFeature1 = () => {
-    const feature1Section = document.getElementById('feature-1');
-    if (feature1Section) {
-      feature1Section.scrollIntoView({ behavior: 'smooth' });
+  // Scroll to CTA section
+  const scrollToCTA = () => {
+    const ctaSection = document.getElementById('cta-section');
+    if (ctaSection) {
+      ctaSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -48,8 +48,8 @@ const Hero = () => {
             
             {/* CTA button below subheading */}
             <div className="flex flex-col items-center md:items-start">
-              <button onClick={scrollToFeature1} className="crafty-button group w-64">
-                <span className="font-semibold">See How It Works</span>
+              <button onClick={scrollToCTA} className="crafty-button group w-64">
+                <span className="font-semibold">Lock In 50% Off For Life</span>
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </button>
               <div className="text-xs mt-2 text-gray-700 text-center w-64">No signup • No credit card</div>
