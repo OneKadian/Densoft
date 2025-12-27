@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 
@@ -48,7 +47,7 @@ const Hero = () => {
             </p>
             
             {/* CTA button below subheading */}
-            <div className="flex flex-col items-center md:items-start">
+            <div className="flex flex-col items-center w-fit mx-auto md:mx-0">
               <button onClick={scrollToCTA} className="crafty-button group whitespace-nowrap">
                 <span className="font-semibold">Lock In 50% Off For Life</span>
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
