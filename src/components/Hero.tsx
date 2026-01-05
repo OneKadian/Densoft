@@ -13,13 +13,13 @@ const Hero = () => {
     "/lovable-uploads/dentist.gif"
   ];
 
-  // Auto-rotate images every 3.5 seconds
+  // Auto-rotate images every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => 
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3500);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -36,6 +36,15 @@ const Hero = () => {
     <div className="w-full bg-body-bg pt-8 pb-10 md:py-12 min-h-[92vh] flex items-center">
       <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-16">
         <div className="flex flex-col md:flex-row items-center">
+          {/* Mobile: Image at top */}
+          <div className="w-full md:hidden mb-6">
+            <img
+              src="/lovable-uploads/dentistpic.png"
+              alt="Feature showcase"
+              className="w-full mx-auto h-auto object-contain rounded-2xl shadow-2xl"
+            />
+          </div>
+
           {/* Left side with content */}
           <div className="w-full md:w-1/2 text-center md:text-left md:pr-10 lg:pr-16">
             <h1 className="font-playfair text-5xl md:text-5xl font-semibold leading-tight mb-6 md:mb-8">
@@ -56,7 +65,7 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Right side with slideshow - hidden on mobile */}
+          {/* Desktop: Slideshow on right */}
           <div className="hidden md:block w-1/2 mt-10 md:mt-0">
             <div className="p-2 flex justify-center relative">
               {images.map((image, index) => (

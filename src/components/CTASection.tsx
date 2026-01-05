@@ -61,7 +61,7 @@ const CTASection = () => {
             </button>
 
             <p className="text-sm text-gray-600">
-              Launching January 2026
+              Launching January 20, 2026
             </p>
           </div>
         </div>

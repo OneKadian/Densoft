@@ -204,7 +204,7 @@ const SignupModal = ({ isOpen, onClose }) => {
                 </h2>
 
                 <p className="text-gray-600 mb-6 text-center">
-                  🎁 Lock in 50% off for life • Launching January 2026
+                  🎁 Lock in 50% off for life • Launching January 20, 2026
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -259,7 +259,7 @@ const SignupModal = ({ isOpen, onClose }) => {
                   </p>
                   <p className="flex items-start">
                     <span className="text-blue-600 mr-2 flex-shrink-0">✓</span>
-                    <span>Early access on January 1, 2026</span>
+                    <span>Early access on January 20, 2026</span>
                   </p>
                 </div>
                 <button
