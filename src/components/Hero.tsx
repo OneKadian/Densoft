@@ -86,17 +86,17 @@ const Hero = () => {
             <img
               src="/lovable-uploads/heroDentist.png"
               alt="Feature showcase"
-              className="w-[85%] md:w-[90%] mx-auto h-auto object-contain rounded-2xl shadow-2xl"
+              className="w-[90%] md:w-[90%] mx-auto h-auto object-contain rounded-2xl shadow-2xl"
             />
           </div>
 
           {/* Left side with content */}
           <div className="w-full md:w-1/2 text-left md:pr-10 lg:pr-16">
-            <h1 className="font-playfair text-3xl md:text-5xl font-semibold leading-tight text-center md:text-left mb-4 md:mb-8">
+            <h1 className="font-playfair text-3xl md:text-5xl font-semibold leading-tight text-left mb-4 md:mb-8">
               Rank #1 When Patients Search 'Best Dentist Near Me'
             </h1>
             
-            <p className="text-base md:text-lg text-gray-700 mb-6 md:mb-8 max-w-lg text-center md:text-left">
+            <p className="text-base md:text-lg text-gray-700 mb-6 md:mb-8 max-w-lg text-left">
               We get you more reviews, optimize your profile, and make you the go-to choice in your area, all on autopilot.
             </p>
             
