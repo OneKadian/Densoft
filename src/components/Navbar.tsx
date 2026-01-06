@@ -35,7 +35,7 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`py-4 px-4 md:px-10 lg:px-16 fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
+      className={`py-4 px-4 hidden md:block md:px-10 lg:px-16 fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
         isScrolled ? "bg-body-bg/95 backdrop-blur-sm shadow-sm" : "bg-body-bg/80"
       }`}
     >
@@ -58,10 +58,10 @@ const Navbar = () => {
             >
               Login
             </button> */}
-            <button onClick={scrollToCTA} className="crafty-button group">
+            {/* <button onClick={scrollToCTA} className="crafty-button group">
               <span className="font-semibold">Get 50% Off Forever</span>
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-            </button>
+            </button> */}
           </div>
 
           {/* Mobile menu button */}
